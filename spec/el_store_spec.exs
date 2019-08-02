@@ -42,14 +42,21 @@ defmodule ElStoreSpec do
     #end
   #end
 
-  context ".exists?" do
+  describe ".exists?" do
     before do
       ElStore.set(:world, "Hello")
     end
 
-    it "returns boolean" do
-      expect(ElStore.exists?(:world)) |> to(eq true)
-      expect(ElStore.exists?(:has_not_key)) |> to(eq false)
+    context "with existing key" do
+      it "returns true" do
+        expect(ElStore.exists?(:world)) |> to(eq true)
+      end
+    end
+
+    context "without existing key" do
+      it "returns false" do
+        expect(ElStore.exists?(:non_existing_key)) |> to(eq false)
+      end
     end
   end
 
